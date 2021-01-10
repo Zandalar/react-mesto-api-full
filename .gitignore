@@ -3,6 +3,7 @@
 .nojekyll
 .eslintrc.js
 .eslintignore
+.idea
 # dependencies
 /node_modules
 /.pnp
