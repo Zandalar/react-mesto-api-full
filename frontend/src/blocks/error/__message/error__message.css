@@ -1,0 +1,8 @@
+.error__message {
+  margin: 50px 0 0;
+  font-size: 20px;
+  font-family: 'Monoton', cursive;
+  color: #fff;
+  letter-spacing: 3px;
+  text-align: center;
+}

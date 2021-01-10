@@ -1,0 +1,20 @@
+@import url(./__button-like/element__button-like.css);
+@import url(./__button-like/_active/element__button-like_active.css);
+@import url(./__description/element__description.css);
+@import url(./__photo/element__photo.css);
+@import url(./__title/element__title.css);
+@import url(./__table/element__table.css);
+@import url(./__button-delete/element__button-delete.css);
+@import url(./__button-delete/_top/element__button-delete_top.css);
+@import url(./__button-delete/_bottom/element__button-delete_bottom.css);
+@import url(./__button-delete/_active/element__button-delete_active.css);
+@import url(./__like-container/element__like-container.css);
+@import url(./__like-count/element__like-count.css);
+
+.element {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}

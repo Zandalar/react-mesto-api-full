@@ -1,0 +1,15 @@
+.error__link {
+  padding: 10px 0;
+  font-size: 20px;
+  font-family: 'Monoton', cursive;
+  color: red;
+  text-decoration: none;
+  text-shadow: 0 0 20px #B22222;
+  letter-spacing: 2px;
+  transition: all .5s ease;
+}
+
+.error__link:hover {
+  transform: translate(-20px);
+  transition: all .5s ease;
+}

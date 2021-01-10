@@ -1,0 +1,33 @@
+{
+  "name": "express-mesto",
+  "description": "backend for Mesto-project",
+  "author": "Vitaliy Masich",
+  "version": "0.1.0",
+  "main": "app.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.11.7"
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zandalar/express-mesto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Zandalar/express-mesto/issues"
+  },
+  "homepage": "https://github.com/Zandalar/express-mesto#readme"
+}

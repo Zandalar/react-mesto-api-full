@@ -1,0 +1,4 @@
+.header__user-info {
+  display: flex;
+  justify-content: flex-end;
+}

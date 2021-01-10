@@ -1,0 +1,18 @@
+.menu__logout {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #a9a9a9;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  background: none;
+}
+
+.menu__logout:hover {
+  cursor: pointer;
+  opacity: .6;
+  transition: opacity .5s;
+}

@@ -1,0 +1,33 @@
+@import url(./__button-close/popup__button-close.css);
+@import url(./__button-save/popup__button-save.css);
+@import url(./__button-confirm/popup__button-confirm.css);
+@import url(./__button-save/_disabled/popup__button-save_disabled.css);
+@import url(./__title/popup__title.css);
+@import url(./__field/popup__field.css);
+@import url(./__container/popup__container.css);
+@import url(./__container/_image/popup__container_image.css);
+@import url(./__form/popup__form.css);
+@import url(./__image/popup__image.css);
+@import url(./__title/_image/popup__title_image.css);
+@import url(./__field-error/popup__field-error.css);
+@import url(./__field/_type_error/popup__field_type_error.css);
+@import url(./__status/popup__status.css);
+@import url(./__status-title/popup__status-title.css);
+
+.popup {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .5s ease;
+}
+
+.popup::before {
+  content:'';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #000;
+  position: fixed;
+  opacity: .8;
+}

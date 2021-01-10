@@ -1,0 +1,21 @@
+.element__button-delete {
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  display: grid;
+  grid-template-columns: 18px;
+  grid-template-rows: 4.5px 13.5px;
+  column-gap: 1.3px;
+  visibility: hidden;
+}
+
+.element__button-delete:hover {
+  opacity: .6;
+  transition: opacity .5s;
+  cursor: pointer;
+}

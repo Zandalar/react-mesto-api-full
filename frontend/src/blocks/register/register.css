@@ -1,0 +1,24 @@
+@import url(./__button/register__button.css);
+@import url(./__form/register__form.css);
+@import url(./__input/register__input.css);
+@import url(./__link/register__link.css);
+@import url(./__subtitle/register__subtitle.css);
+@import url(./__title/register__title.css);
+@import url(./__error/register__error.css);
+@import url(./__button/_disabled/register__button_disabled.css);
+
+.register {
+  min-width: 358px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 60px 0 80px;
+}
+
+@media all and (max-width: 600px) {
+  .register {
+    min-width: 100%;
+  }
+}

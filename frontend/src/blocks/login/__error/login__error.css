@@ -1,0 +1,13 @@
+.login__error {
+  max-width: 358px;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+}
+
+@media all and (max-width: 600px) {
+  .login__error {
+    max-width: 90%;
+  }
+}

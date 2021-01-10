@@ -1,0 +1,24 @@
+@import url(./__logo/header__logo.css);
+@import url(./__link/header__link.css);
+@import url(./__email/header__email.css);
+@import url(./__user-info/header__user-info.css);
+@import url(./__logout/header__logout.css);
+@import url(./__menu/header__menu.css);
+@import url(./__image/header__image.css);
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 68.90625%;
+  padding: 45px 0 41px;
+  border-bottom: 1px solid #545454;
+  box-sizing: border-box;
+}
+
+@media all and (max-width: 600px) {
+  .header {
+    width: 100%;
+    padding: 28px 30px 32px;
+  }
+}

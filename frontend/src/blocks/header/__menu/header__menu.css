@@ -1,0 +1,23 @@
+.header__menu {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+.header__menu:hover {
+  opacity: .6;
+  transition: opacity .5s;
+  cursor: pointer;
+}
+
+@media all and (min-width: 600px) {
+  .header__menu {
+    display: none;
+  }
+}

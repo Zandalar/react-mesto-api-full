@@ -1,0 +1,24 @@
+.profile__info_button-edit {
+  background-image: url(../../../../images/button__edit.svg);
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #FFFFFF;
+  outline: none;
+}
+
+.profile__info_button-edit:hover {
+  opacity: .6;
+  transition: opacity .5s;
+  cursor: pointer;
+}
+
+@media all and  (max-width: 600px) {
+  .profile__info_button-edit {
+    font-size: 27px;
+    width: 18px;
+    height: 18px;
+  }
+}

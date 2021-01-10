@@ -1,0 +1,22 @@
+@import url(./__button/login__button.css);
+@import url(./__form/login__form.css);
+@import url(./__input/login__input.css);
+@import url(./__title/login__title.css);
+@import url(./__error/login__error.css);
+@import url(./__button/_disabled/login__button_disabled.css);
+
+.login {
+  min-width: 358px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 60px 0 112px;
+}
+
+@media all and (max-width: 600px) {
+  .login {
+    min-width: 100%;
+  }
+}
