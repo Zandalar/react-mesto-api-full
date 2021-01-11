@@ -1,8 +1,10 @@
+/* eslint-disable linebreak-style */
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+// eslint-disable-next-line import/no-unresolved
 const { celebrate, Joi, errors } = require('celebrate');
 
 const usersRouter = require('./routes/usersRouter');
@@ -46,7 +48,7 @@ app.post('/signup', celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().regex(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/),
     email: Joi.string().required().email(),
-    password: Joi.string().min(10).required().regex(/^\S+$/)
+    password: Joi.string().min(10).required().regex(/^\S+$/),
   }),
 }), createUser);
 
@@ -55,13 +57,14 @@ app.use('/', usersRouter);
 app.use('/', cardsRouter);
 
 app.use(errors());
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message
-    });
+    message: statusCode === 500
+      ? 'На сервере произошла ошибка'
+      : message,
+  });
 });
 
 app.listen(PORT, () => {
