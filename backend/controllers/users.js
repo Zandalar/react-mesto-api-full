@@ -34,17 +34,17 @@ function createUser(req, res, next) {
       avatar,
       email,
       password: hash,
+    }))
+    .then((user) => res.status(200).send({
+      _id: user._id,
+      email: user.email,
     })
-      .then((user) => res.status(200).send({
-        _id: user._id,
-        email: user.email,
-      })
-        .catch((err) => {
-          if (err.name === 'ValidationError') {
-            throw new ReqError('Введите корректные данные');
-          }
-          next(err);
-        })));
+      .catch((err) => {
+        if (err.name === 'ValidationError') {
+          throw new ReqError('Введите корректные данные');
+        }
+        next(err);
+      }));
 }
 
 function updateUser(req, res, next) {

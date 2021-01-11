@@ -7,7 +7,7 @@ function auth(req, res, next) {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    next(new Error('Необходима авторизация'));
+    next(new AuthError('Необходима авторизация'));
   }
   const token = authorization.replace('Bearer ', '');
   let payload;
@@ -18,7 +18,7 @@ function auth(req, res, next) {
     next(new AuthError('Необходима авторизация'));
   }
   req.user = payload;
-  return next();
+  next();
 }
 
 module.exports = auth;
