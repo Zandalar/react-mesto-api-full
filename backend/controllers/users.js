@@ -90,6 +90,7 @@ function login(req, res) {
         maxAge: 3600000 * 7 * 24,
         httpOnly: true
       })
+      res.status(200).send({ message: 'cookie!' });
     })
     .catch(next);
 }
