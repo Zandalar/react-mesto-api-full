@@ -1,9 +1,11 @@
 const Card = require('../models/card');
+const NotFoundError = require('../errors/NotFoundError');
+const ReqError = require('../errors/ReqError');
 
 function getCards(req, res) {
   Card.find({})
     .then((data) => res.status(200).send(data))
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .catch(next);
 }
 
 function createCard(req, res) {
@@ -12,9 +14,9 @@ function createCard(req, res) {
     .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: `Введите корректные данные: ${err.message}` });
+        throw new ReqError('Введите корректные данные');
       }
-      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
+      next(err);
     });
 }
 
@@ -22,11 +24,11 @@ function deleteCard(req, res) {
   Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: 'Файл не найден' });
+        throw new NotFoundError('Файл не найден');
       }
       return res.status(200).send(card);
     })
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .catch(next);
 }
 
 function likeCard(req, res) {
@@ -37,11 +39,11 @@ function likeCard(req, res) {
   )
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: 'Файл не найден' });
+        throw new NotFoundError('Файл не найден');
       }
       return res.status(200).send(card);
     })
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .catch(next);
 }
 
 function dislikeCard(req, res) {
@@ -52,11 +54,11 @@ function dislikeCard(req, res) {
   )
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: 'Файл не найден' });
+        throw new NotFoundError('Файл не найден');
       }
       return res.status(200).send(card);
     })
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .catch(next);
 }
 
 module.exports = {

@@ -7,6 +7,7 @@ const cardsRouter = require('./routes/cardsRouter');
 const notFoundRouter = require('./routes/notFoundRouter');
 const auth = require('./middlewares/auth');
 const cookieParser = require('cookie-parser');
+const { login, createUser } = require('./controllers/users');
 
 const { PORT = 3000 } = process.env;
 
@@ -32,7 +33,16 @@ app.post('/signup', createUser);
 app.use(auth);
 app.use('/', usersRouter);
 app.use('/', cardsRouter);
-app.use('*', notFoundRouter)
+
+app.use(errors());
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+  res.status(statusCode).send({
+      message: statusCode === 500
+        ? 'На сервере произошла ошибка'
+        : message
+    });
+});
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

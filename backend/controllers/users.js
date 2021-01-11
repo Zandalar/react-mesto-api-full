@@ -1,24 +1,25 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-
+const NotFoundError = require('../errors/NotFoundError');
+const ReqError = require('../errors/ReqError');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 function getUsers(req, res) {
   User.find({})
     .then((users) => res.status(200).send(users))
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .catch(next);
 }
 
 function getUser(req, res) {
   User.findById(req.params.id)
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: 'Нет юзера с таким id' });
+        throw new NotFoundError('Нет юзера с таким id');
       }
       return res.status(200).send(user);
     })
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .catch(next);
 }
 
 function createUser(req, res) {
@@ -37,9 +38,9 @@ function createUser(req, res) {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: `Введите корректные данные: ${err.message}` });
+        throw new ReqError('Введите корректные данные');
       }
-      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
+      next(err);
     }))
   )
 }
@@ -52,11 +53,11 @@ function updateUser(req, res) {
   })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: 'Пользователь не найден' });
+        throw new NotFoundError('Нет юзера с таким id');
       }
       return res.status(200).send(user);
     })
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .catch(next);
 }
 
 function updateAvatar(req, res) {
@@ -67,11 +68,11 @@ function updateAvatar(req, res) {
   })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: 'Пользователь не найден' });
+        throw new NotFoundError('Нет юзера с таким id');
       }
       return res.status(200).send(user);
     })
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .catch(next);
 }
 
 function login(req, res) {
@@ -81,18 +82,16 @@ function login(req, res) {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
-        { _id: user._id},
-        'vodka-bear-balalayka',
+      { _id: user._id},
+        NODE_ENV === 'production' ? JWT_SECRET : 'vodka-bear-balalayka',
         { expiresIn: '7d'}
-        );
+      );
       res.cookie('jwt', token, {
-          maxAge: 3600000 * 7 * 24,
-          httpOnly: true
-        })
+        maxAge: 3600000 * 7 * 24,
+        httpOnly: true
+      })
     })
-    .catch((err) => {
-      res.status(401).send({ message: err.message });
-    });
+    .catch(next);
 }
 
 module.exports = {
