@@ -11,10 +11,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
-    "mongoose": "^5.11.7"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.7",
+    "validator": "^13.5.2"
   },
   "devDependencies": {
     "eslint": "^7.14.0",
