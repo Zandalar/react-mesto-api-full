@@ -1,10 +1,8 @@
-/* eslint-disable linebreak-style */
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-// eslint-disable-next-line import/no-unresolved
 const { celebrate, Joi, errors } = require('celebrate');
 
 const usersRouter = require('./routes/usersRouter');

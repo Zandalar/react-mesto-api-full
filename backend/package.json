@@ -1,6 +1,6 @@
 {
-  "name": "express-mesto",
-  "description": "backend for Mesto-project",
+  "name": "mesto-frontend",
+  "description": "frontend for mesto",
   "author": "Vitaliy Masich",
   "version": "0.1.0",
   "main": "app.js",
@@ -30,10 +30,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zandalar/express-mesto.git"
+    "url": "git+https://github.com/Zandalar/react-mesto-api-full.git"
   },
   "bugs": {
-    "url": "https://github.com/Zandalar/express-mesto/issues"
+    "url": "https://github.com/Zandalar/react-mesto-api-full/issues"
   },
-  "homepage": "https://github.com/Zandalar/express-mesto#readme"
+  "homepage": "https://zandalar.students.nomoreparties.xyz"
 }
