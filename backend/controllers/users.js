@@ -3,15 +3,16 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const NotFoundError = require('../errors/NotFoundError');
 const ReqError = require('../errors/ReqError');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-function getUsers(req, res) {
+function getUsers(req, res, next) {
   User.find({})
     .then((users) => res.status(200).send(users))
     .catch(next);
 }
 
-function getUser(req, res) {
+function getUser(req, res, next) {
   User.findById(req.params.id)
     .then((user) => {
       if (!user) {
@@ -22,30 +23,31 @@ function getUser(req, res) {
     .catch(next);
 }
 
-function createUser(req, res) {
-  const { name, about, avatar, email, password } = req.body;
+function createUser(req, res, next) {
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name,
       about,
       avatar,
       email,
-      password: hash
+      password: hash,
     })
-    .then((user) => res.status(200).send({
-      _id: user._id,
-      email: user.email
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        throw new ReqError('Введите корректные данные');
-      }
-      next(err);
-    }))
-  )
+      .then((user) => res.status(200).send({
+        _id: user._id,
+        email: user.email,
+      })
+        .catch((err) => {
+          if (err.name === 'ValidationError') {
+            throw new ReqError('Введите корректные данные');
+          }
+          next(err);
+        })));
 }
 
-function updateUser(req, res) {
+function updateUser(req, res, next) {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, about }, {
     new: true,
@@ -60,7 +62,7 @@ function updateUser(req, res) {
     .catch(next);
 }
 
-function updateAvatar(req, res) {
+function updateAvatar(req, res, next) {
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.user._id, { avatar }, {
     new: true,
@@ -75,21 +77,21 @@ function updateAvatar(req, res) {
     .catch(next);
 }
 
-function login(req, res) {
+function login(req, res, next) {
   const { email, password } = req.body;
 
-  User.findOne({ email })
+  User.findOne({ email });
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
-      { _id: user._id},
+        { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'vodka-bear-balalayka',
-        { expiresIn: '7d'}
+        { expiresIn: '7d' },
       );
       res.cookie('jwt', token, {
         maxAge: 3600000 * 7 * 24,
-        httpOnly: true
-      })
+        httpOnly: true,
+      });
       res.status(200).send({ message: 'cookie!' });
     })
     .catch(next);
