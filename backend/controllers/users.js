@@ -88,11 +88,11 @@ function login(req, res, next) {
         NODE_ENV === 'production' ? JWT_SECRET : 'vodka-bear-balalayka',
         { expiresIn: '7d' },
       );
-      res.cookie('jwt', token, {
-        maxAge: 3600000 * 7 * 24,
-        httpOnly: true,
-      });
-      res.status(200).send({ message: 'cookie!' });
+      // res.cookie('jwt', token, {
+      //   maxAge: 3600000 * 7 * 24,
+      //   httpOnly: true,
+      // });
+      res.status(200).send({ token });
     })
     .catch(next);
 }
