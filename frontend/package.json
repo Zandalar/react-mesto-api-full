@@ -14,7 +14,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* fernandes@178.154.232.23:/home/fernandes/mesto/frontend",
+    "deploy": "npm run build && scp -r ./build/* fernandes@178.154.232.23:/home/fernandes/frontend",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
