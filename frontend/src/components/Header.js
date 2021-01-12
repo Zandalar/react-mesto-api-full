@@ -10,11 +10,11 @@ function Header({ userEmail, handleLogout, handleMenuClick, isMenuOpened }) {
     <header className='header'>
       <img className='header__logo' src={logo} alt='Логотип сайта' />
       <div className='header__user-info'>
-        <Route exact path='/sign-in'>
-          <Link to='/sign-up' className='header__link'>Регистрация</Link>
+        <Route exact path='/signin'>
+          <Link to='/signup' className='header__link'>Регистрация</Link>
         </Route>
-        <Route exact path='/sign-up'>
-          <Link to='/sign-in' className='header__link'>Войти</Link>
+        <Route exact path='/signup'>
+          <Link to='/signin' className='header__link'>Войти</Link>
         </Route>
         <Route exact path='/'>
           <p className='header__email'>{userEmail}</p>

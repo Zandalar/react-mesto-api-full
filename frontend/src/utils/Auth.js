@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://zandalar.students.nomoreparties.xyz';
+export const BASE_URL = 'https://api.zandalar.students.nomoreparties.xyz';
 
 export function checkAnswer(res) {
   if (res.ok) {

@@ -93,7 +93,7 @@ function App() {
       .then((data) => {
         setEmail(data.email)
         setStatus(true);
-        history.push('/sign-in');
+        history.push('/signin');
         setIsLoading(false);
       })
       .catch((err) => {
@@ -201,7 +201,7 @@ function App() {
 
   function handleLogout() {
     localStorage.removeItem('jwt');
-    history.push('/sign-in');
+    history.push('/signin');
     setLoggedIn(false);
   }
 
@@ -253,13 +253,13 @@ function App() {
               isLoading={isLoading}
               />
             </Route>
-            <Route path='/sign-up'>
+            <Route path='/signup'>
               <Register
                 onRegister={handleRegister}
                 isLoading={isLoading}
               />
             </Route>
-            <Route path='/sign-in'>
+            <Route path='/signin'>
               <Login
                 onLogin={handleLogin}
                 isLoading={isLoading}
@@ -268,7 +268,7 @@ function App() {
             <Route exact path='/'>
               { loggedIn
                 ? <Redirect to='/' />
-                : <Redirect to='/sign-in' />}
+                : <Redirect to='/signin' />}
             </Route>
             <Route path='*'>
               <NotFound />
