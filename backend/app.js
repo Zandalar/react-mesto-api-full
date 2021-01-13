@@ -11,9 +11,17 @@ const { login, createUser } = require('./controllers/users');
 
 const { PORT = 3000 } = process.env;
 
-const app = express();
+const allowedCors = [
+  'https://zandalar.students.nomoreparties.xyz',
+  'http://zandalar.students.nomoreparties.xyz',
+  'https://www.zandalar.students.nomoreparties.xyz',
+  'http://www.zandalar.students.nomoreparties.xyz',
+  'localhost:3000'
+];
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+const app = express()
+
+mongoose.connect('mongodb://zandalar.students.nomoreparties.xyz/mestodb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -26,6 +34,17 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(function(req, res, next) {
+  const { origin } = req.headers;
+
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+  }
+  next();
+});
 
 app.get('/crash-test', () => {
   setTimeout(() => {
