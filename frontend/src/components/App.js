@@ -93,7 +93,7 @@ function App() {
       .then((data) => {
         setEmail(data.email)
         setStatus(true);
-        history.push('/signin');
+        history.push('/sign-in');
         setIsLoading(false);
       })
       .catch((err) => {
@@ -101,7 +101,7 @@ function App() {
         if (err.status === 400) {
           setErrorText('Некорректно заполнено одно из полей');
         } else {
-          setErrorText(err.status);
+          setErrorText(`Ошибка: ${err.status}`);
         }
       })
       .finally(() => {
@@ -128,7 +128,7 @@ function App() {
         } else if (err.status === 401) {
           setErrorText('Пользователь не найден, либо неверно указаны данные.');
         } else {
-          setErrorText(err.status);
+          setErrorText(`Ошибка: ${err.status}`);
         }
       })
   }
@@ -201,7 +201,7 @@ function App() {
 
   function handleLogout() {
     localStorage.removeItem('jwt');
-    history.push('/signin');
+    history.push('/sign-in');
     setLoggedIn(false);
   }
 
@@ -253,13 +253,13 @@ function App() {
               isLoading={isLoading}
               />
             </Route>
-            <Route path='/signup'>
+            <Route path='/sign-up'>
               <Register
                 onRegister={handleRegister}
                 isLoading={isLoading}
               />
             </Route>
-            <Route path='/signin'>
+            <Route path='/sign-in'>
               <Login
                 onLogin={handleLogin}
                 isLoading={isLoading}
@@ -268,7 +268,7 @@ function App() {
             <Route exact path='/'>
               { loggedIn
                 ? <Redirect to='/' />
-                : <Redirect to='/signin' />}
+                : <Redirect to='/sign-in' />}
             </Route>
             <Route path='*'>
               <NotFound />

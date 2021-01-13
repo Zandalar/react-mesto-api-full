@@ -63,7 +63,7 @@ function Register({ onRegister, isLoading }) {
       </form>
       <p className='register__subtitle'>
         Уже зарегистрированы?&ensp;
-        <Link to='/signin' className='register__link'>Войти</Link>
+        <Link to='/sign-in' className='register__link'>Войти</Link>
       </p>
     </div>
   )
