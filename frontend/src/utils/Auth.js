@@ -1,6 +1,6 @@
 export const BASE_URL = 'https://api.zandalar.students.nomoreparties.xyz';
 
-export function checkAnswer(res) {
+function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
@@ -11,22 +11,24 @@ export function register(email, password) {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
   })
-    .then(checkAnswer);
+    .then(checkResponse);
 }
 
 export function authorize(email, password) {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
   })
-    .then(checkAnswer);
+    .then(checkResponse);
 }
 
 export function checkToken(jwt) {
@@ -34,9 +36,10 @@ export function checkToken(jwt) {
     method: 'GET',
     credentials: 'include',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${jwt}`,
+      'Authorization': `Bearer ${jwt}`,
     },
   })
-    .then(checkAnswer);
+    .then(checkResponse);
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import api from '../utils/api';
+import * as api from '../utils/api';
+import * as auth from '../utils/auth';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -14,7 +15,6 @@ import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
-import * as auth from '../utils/Auth';
 import NotFound from './notFound';
 import MenuMobile from './MenuMobile';
 
@@ -34,11 +34,12 @@ function App() {
 	const [status, setStatus] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [errorText, setErrorText] = React.useState('');
+  const [token, setToken] = React.useState('');
   const history = useHistory();
 
 	function handleCardLike(card) {
     const isLiked = card.likes.some(item => item._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked)
+    api.changeLikeCardStatus(card._id, !isLiked, token)
       .then((newCard) => {
       const newCards = cards.map((data) => data._id === card._id ? newCard : data);
       setCards(newCards);
@@ -47,7 +48,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
+    api.deleteCard(card._id, token).then(() => {
       const newCards = cards.filter(item => item !== card);
       setCards(newCards);
     })
@@ -56,7 +57,7 @@ function App() {
 
   function handleUpdateUser(user) {
 	  setIsLoading(true);
-    api.setUserInfo(user)
+    api.setUserInfo(user, token)
       .then((res) => {
         setCurrentUser(res);
         setIsLoading(false);
@@ -67,7 +68,7 @@ function App() {
 
   function handleUpdateAvatar(link) {
     setIsLoading(true);
-    api.editAvatar(link)
+    api.editAvatar(link, token)
       .then((res) => {
         setCurrentUser(res);
         setIsLoading(false);
@@ -78,7 +79,7 @@ function App() {
 
   function handleAddPlaceSubmit(data) {
     setIsLoading(true);
-    api.setNewCard(data)
+    api.setNewCard(data, token)
       .then((res) => {
         setCards([res, ...cards]);
         setIsLoading(false);
@@ -93,8 +94,8 @@ function App() {
       .then((data) => {
         setEmail(data.email)
         setStatus(true);
-        history.push('/sign-in');
         setIsLoading(false);
+        history.push('/sign-in');
       })
       .catch((err) => {
         setStatus(false);
@@ -114,11 +115,12 @@ function App() {
     setIsMobileMenuOpened(false);
     auth.authorize(email, password)
       .then(data => {
-        localStorage.setItem('jwt', data.token)
+        localStorage.setItem('jwt', data.token);
+        setToken(data.token);
         setLoggedIn(true);
-        history.push('/');
         setStatus(true);
         setIsLoading(false);
+        history.push('/');
       })
       .catch((err) => {
         setStatus(false);
@@ -208,7 +210,7 @@ function App() {
   React.useEffect(() => {
     setIsLoading(true);
     if (loggedIn) {
-      const promises = [api.getUserInfo(), api.getInitialCards()];
+      const promises = [api.getUserInfo(token), api.getInitialCards(token)];
       Promise.all(promises)
         .then((res) => {
           const [userData, cardsList] = res;

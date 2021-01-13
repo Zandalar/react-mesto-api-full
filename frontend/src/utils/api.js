@@ -1,86 +1,99 @@
-class Api {
-  constructor(options) {
-    this._baseUrl = options.baseUrl;
-    this._headers = options.headers;
-  }
+export const BASE_URL = 'https://api.zandalar.students.nomoreparties.xyz';
 
-  _checkAnswer(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(new Error(res.status));
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
   }
-
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    })
-      .then(this._checkAnswer);
-  }
-
-  setUserInfo(data) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        about: data.about,
-      }),
-    })
-      .then(this._checkAnswer);
-  }
-
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    })
-      .then(this._checkAnswer);
-  }
-
-  setNewCard(data) {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        link: data.link,
-      }),
-    })
-      .then(this._checkAnswer);
-  }
-
-  changeLikeCardStatus(id, isLiked) {
-    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-      method: `${isLiked ? 'PUT' : 'DELETE'}`,
-      headers: this._headers,
-    })
-      .then(this._checkAnswer);
-  }
-
-  deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
-      method: 'DELETE',
-      headers: this._headers,
-    })
-      .then(this._checkAnswer);
-  }
-
-  editAvatar(data) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify(data),
-    })
-      .then(this._checkAnswer);
-  }
+  return Promise.reject(new Error(res.status));
 }
 
-const api = new Api({
-  baseUrl: 'https://api.zandalar.students.nomoreparties.xyz',
-  headers: {
-    Authorization: `Bearer ${localStorage.jwt}`,
-    'Content-Type': 'application/json',
-  },
-});
+export function getUserInfo(token) {
+  return fetch(`${BASE_URL}/users/me`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(checkResponse);
+}
 
-export default api;
+export function setUserInfo(data, token) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: data.name,
+      about: data.about,
+    }),
+  })
+    .then(checkResponse);
+}
+
+export function getInitialCards(token) {
+  return fetch(`${BASE_URL}/cards`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(checkResponse);
+}
+
+export function setNewCard(data, token) {
+  return fetch(`${BASE_URL}/cards`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: data.name,
+      link: data.link,
+    }),
+  })
+    .then(checkResponse);
+}
+
+export function changeLikeCardStatus(id, isLiked, token) {
+  return fetch(`${BASE_URL}/cards/likes/${id}`, {
+    method: `${isLiked ? 'PUT' : 'DELETE'}`,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(checkResponse);
+}
+
+export function deleteCard(id, token) {
+  return fetch(`${BASE_URL}/cards/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(checkResponse);
+}
+
+export function editAvatar(data, token) {
+  return fetch(`${BASE_URL}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+    .then(checkResponse);
+}
