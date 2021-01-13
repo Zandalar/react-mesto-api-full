@@ -78,7 +78,7 @@ class Api {
 const api = new Api({
   baseUrl: 'https://api.zandalar.students.nomoreparties.xyz',
   headers: {
-    authorization: '41df799d-3987-4f60-8d34-e2c5aaa920c0',
+    Authorization: `Bearer ${localStorage.jwt}`,
     'Content-Type': 'application/json',
   },
 });
