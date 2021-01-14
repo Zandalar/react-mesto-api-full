@@ -1,14 +1,16 @@
+const { NODE_ENV, JWT_SECRET } = process.env;
 const jwt = require('jsonwebtoken');
 const AuthError = require('../errors/AuthError');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
 function auth(req, res, next) {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
     next(new AuthError('Необходима авторизация'));
   }
+
   const token = authorization.replace('Bearer ', '');
+
   let payload;
 
   try {
@@ -16,7 +18,9 @@ function auth(req, res, next) {
   } catch (err) {
     next(new AuthError('Необходима авторизация'));
   }
+
   req.user = payload;
+
   next();
 }
 

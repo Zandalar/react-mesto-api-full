@@ -15,7 +15,7 @@ import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
-import NotFound from './notFound';
+import NotFound from './NotFound';
 import MenuMobile from './MenuMobile';
 
 function App() {
@@ -135,9 +135,16 @@ function App() {
       })
   }
 
+  function handleLogout() {
+    localStorage.removeItem('jwt');
+    history.push('/sign-in');
+    setLoggedIn(false);
+  }
+
   function getToken() {
     const jwt = localStorage.getItem('jwt')
     if (jwt) {
+      setToken(jwt);
       auth.checkToken(jwt)
         .then((res) => {
           setLoggedIn(true);
@@ -199,12 +206,6 @@ function App() {
 
   function isolatePopup(evt) {
     evt.stopPropagation();
-  }
-
-  function handleLogout() {
-    localStorage.removeItem('jwt');
-    history.push('/sign-in');
-    setLoggedIn(false);
   }
 
   React.useEffect(() => {

@@ -1,11 +1,4 @@
-export const BASE_URL = 'https://api.zandalar.students.nomoreparties.xyz';
-
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(new Error(res.status));
-}
+import { BASE_URL, checkResponse } from './utils';
 
 export function getUserInfo(token) {
   return fetch(`${BASE_URL}/users/me`, {

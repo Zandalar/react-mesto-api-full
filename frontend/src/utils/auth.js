@@ -1,11 +1,4 @@
-export const BASE_URL = 'https://api.zandalar.students.nomoreparties.xyz';
-
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(res);
-}
+import { BASE_URL, checkResponse } from './utils';
 
 export function register(email, password) {
   return fetch(`${BASE_URL}/signup`, {

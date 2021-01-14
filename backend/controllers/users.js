@@ -12,8 +12,19 @@ function getUsers(req, res, next) {
     .catch(next);
 }
 
-function getUser(req, res, next) {
+function getUserById(req, res, next) {
   User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Нет юзера с таким id');
+      }
+      return res.status(200).send(user);
+    })
+    .catch(next);
+}
+
+function getUserInfo(req, res, next) {
+  User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Нет юзера с таким id');
@@ -88,10 +99,10 @@ function login(req, res, next) {
         NODE_ENV === 'production' ? JWT_SECRET : 'vodka-bear-balalayka',
         { expiresIn: '7d' },
       );
-      // res.cookie('jwt', token, {
-      //   maxAge: 3600000 * 7 * 24,
-      //   httpOnly: true,
-      // });
+      res.cookie('jwt', token, {
+        maxAge: 3600000 * 7 * 24,
+        httpOnly: true,
+      });
       res.status(200).send({ token });
     })
     .catch(next);
@@ -99,7 +110,8 @@ function login(req, res, next) {
 
 module.exports = {
   getUsers,
-  getUser,
+  getUserById,
+  getUserInfo,
   createUser,
   updateUser,
   updateAvatar,
