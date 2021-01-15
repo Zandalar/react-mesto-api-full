@@ -240,20 +240,25 @@ function App() {
       <div className='page'>
         <div className='content'>
           {isMobileMenuOpened && loggedIn && <MenuMobile userEmail={email} handleLogout={handleLogout} />}
-          <Header userEmail={email} handleLogout={handleLogout} handleMenuClick={handleMenuClick}  isMenuOpened={isMobileMenuOpened} />
+          <Header
+            userEmail={email}
+            handleLogout={handleLogout}
+            handleMenuClick={handleMenuClick}
+            isMenuOpened={isMobileMenuOpened}
+          />
           <Switch>
             <Route exact path='/'>
               <ProtectedRoute
-              component={Main}
-              loggedIn={loggedIn}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleDeletionCardClick}
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              isLoading={isLoading}
+                component={Main}
+                loggedIn={loggedIn}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onCardDelete={handleDeletionCardClick}
+                onEditProfile={handleEditProfileClick}
+                onEditAvatar={handleEditAvatarClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                isLoading={isLoading}
               />
             </Route>
             <Route path='/sign-up'>
