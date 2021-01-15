@@ -41,7 +41,7 @@ function App() {
     const isLiked = card.likes.some(item => item === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked, token)
       .then((newCard) => {
-      const newCards = cards.map((data) => data._id === card._id ? newCard : data);
+      const newCards = cards.map((data) => data._id === card._id ? newCard.data : data);
       setCards(newCards);
     })
       .catch((err) => console.log(`Что-то пошло не так :( ${err}`))
