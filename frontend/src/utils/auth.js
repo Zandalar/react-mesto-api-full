@@ -27,7 +27,7 @@ export function authorize(email, password) {
 export function checkToken(jwt) {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
-    credentials: 'include',
+    // credentials: 'include',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',

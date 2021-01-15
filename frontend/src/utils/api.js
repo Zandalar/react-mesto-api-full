@@ -55,7 +55,7 @@ export function setNewCard(data, token) {
 }
 
 export function changeLikeCardStatus(id, isLiked, token) {
-  return fetch(`${BASE_URL}/cards/likes/${id}`, {
+  return fetch(`${BASE_URL}/cards/${id}/likes`, {
     method: `${isLiked ? 'PUT' : 'DELETE'}`,
     headers: {
       'Accept': 'application/json',
