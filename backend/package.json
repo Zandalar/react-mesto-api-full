@@ -1,8 +1,8 @@
 {
-  "name": "mesto-frontend",
-  "description": "frontend for mesto",
+  "name": "mesto-backend",
+  "description": "backend for mesto",
   "author": "Vitaliy Masich",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "app.js",
   "license": "ISC",
   "scripts": {
@@ -35,5 +35,5 @@
   "bugs": {
     "url": "https://github.com/Zandalar/react-mesto-api-full/issues"
   },
-  "homepage": "https://zandalar.students.nomoreparties.xyz"
+  "homepage": "https://api.zandalar.students.nomoredomains.rocks"
 }

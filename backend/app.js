@@ -1,3 +1,4 @@
+const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -12,16 +13,14 @@ const { login, createUser } = require('./controllers/users');
 const { PORT = 3000 } = process.env;
 
 const allowedCors = [
-  'https://zandalar.students.nomoreparties.xyz',
-  'http://zandalar.students.nomoreparties.xyz',
-  'https://www.zandalar.students.nomoreparties.xyz',
-  'http://www.zandalar.students.nomoreparties.xyz',
-  'localhost:3000'
+  'https://zandalar.students.nomoredomains.rocks',
+  'http://zandalar.students.nomoredomains.rocks',
+  'localhost:3000',
 ];
 
-const app = express()
+const app = express();
 
-mongoose.connect('mongodb://zandalar.students.nomoreparties.xyz/mestodb', {
+mongoose.connect('mongodb://zandalar.students.nomoredomains.rocks/mestodb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -35,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   const { origin } = req.headers;
 
   if (allowedCors.includes(origin)) {

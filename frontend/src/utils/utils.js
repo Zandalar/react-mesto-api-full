@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'https://api.zandalar.students.nomoredomains.rocks';
 
 export function checkResponse(res) {
 	if (res.ok) {
