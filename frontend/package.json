@@ -14,7 +14,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* zandalar@178.154.232.23:/home/zandalar/react-mesto-api-full/frontend",
+    "deploy": "npm run build && scp -r ./build/* zandalar@178.154.234.15:/home/zandalar/frontend",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
