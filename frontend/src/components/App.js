@@ -41,7 +41,7 @@ function App() {
     const isLiked = card.likes.some(item => item === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked, token)
       .then((newCard) => {
-      const newCards = cards.map((data) => data._id === card._id ? newCard.data : data);
+      const newCards = cards.map((data) => data._id === card._id ? newCard : data);
       setCards(newCards);
     })
       .catch((err) => console.log(`Что-то пошло не так :( ${err}`))
@@ -59,7 +59,7 @@ function App() {
 	  setIsLoading(true);
     api.setUserInfo(user, token)
       .then((res) => {
-        setCurrentUser(res.data);
+        setCurrentUser(res);
         setIsLoading(false);
         closeAllPopups();
       })
@@ -70,7 +70,7 @@ function App() {
     setIsLoading(true);
     api.editAvatar(link, token)
       .then((res) => {
-        setCurrentUser(res.data);
+        setCurrentUser(res);
         setIsLoading(false);
         closeAllPopups();
       })
@@ -81,7 +81,7 @@ function App() {
     setIsLoading(true);
     api.setNewCard(data, token)
       .then((res) => {
-        setCards([res.data, ...cards]);
+        setCards([res, ...cards]);
         setIsLoading(false);
         closeAllPopups();
       })
@@ -216,7 +216,7 @@ function App() {
         .then((res) => {
           const [userData, cardsList] = res;
           setCurrentUser(userData.data)
-          setCards(cardsList.data.reverse());
+          setCards(cardsList.reverse());
         })
         .catch((err) => console.log(`Что-то пошло не так :( ${err}`))
         .finally(() => setIsLoading(false))

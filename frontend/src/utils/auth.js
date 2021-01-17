@@ -21,13 +21,12 @@ export function authorize(email, password) {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then(checkResponse);
+    .then(checkResponse)
 }
 
 export function checkToken(jwt) {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
-    // credentials: 'include',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
