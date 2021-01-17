@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const usersRouter = require('./routes/usersRouter');
 const cardsRouter = require('./routes/cardsRouter');
@@ -42,6 +43,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(requestLogger);
+
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
@@ -67,6 +70,8 @@ app.post('/signup', celebrate({
 app.use(auth);
 app.use('/', usersRouter);
 app.use('/', cardsRouter);
+
+app.use(errorLogger);
 
 app.use(errors());
 // eslint-disable-next-line no-unused-vars
