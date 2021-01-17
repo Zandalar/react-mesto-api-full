@@ -247,21 +247,19 @@ function App() {
             isMenuOpened={isMobileMenuOpened}
           />
           <Switch>
-            <Route>
-              <ProtectedRoute
-                exact path='/'
-                component={Main}
-                loggedIn={loggedIn}
-                cards={cards}
-                onCardLike={handleCardLike}
-                onCardDelete={handleDeletionCardClick}
-                onEditProfile={handleEditProfileClick}
-                onEditAvatar={handleEditAvatarClick}
-                onAddPlace={handleAddPlaceClick}
-                onCardClick={handleCardClick}
-                isLoading={isLoading}
-              />
-            </Route>
+            <ProtectedRoute
+              exact path='/'
+              component={Main}
+              loggedIn={loggedIn}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleDeletionCardClick}
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              isLoading={isLoading}
+            />
             <Route path='/sign-up'>
               <Register
                 onRegister={handleRegister}
