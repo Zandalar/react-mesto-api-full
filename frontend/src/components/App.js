@@ -239,7 +239,7 @@ function App() {
 	  <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <div className='content'>
-          {isMobileMenuOpened && <MenuMobile userEmail={email} handleLogout={handleLogout} />}
+          {isMobileMenuOpened && loggedIn && <MenuMobile userEmail={email} handleLogout={handleLogout} />}
           <Header
             userEmail={email}
             handleLogout={handleLogout}
