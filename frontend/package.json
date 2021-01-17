@@ -14,7 +14,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* zandalar@178.154.234.15:/home/zandalar/frontend",
+    "deploy": "npm run build && scp -r ./build/* zandalar@84.201.171.101:/home/zandalar/frontend",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -23,8 +23,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 const allowedCors = [
-  'https://zandalar.students.nomoredomains.rocks',
-  'http://zandalar.students.nomoredomains.rocks',
+  'https://fernandes.students.nomoredomains.rocks',
+  'http://fernandes.students.nomoredomains.rocks',
   'localhost:3001',
 ];
 
