@@ -13,23 +13,12 @@ function getUsers(req, res, next) {
 }
 
 function getUserById(req, res, next) {
-  User.findById(req.params.id)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Нет юзера с таким id');
-      }
-      return res.status(200).send(user);
-    })
-    .catch(next);
-}
-
-function getUserInfo(req, res, next) {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Нет юзера с таким id');
       }
-      return res.status(200).send(user);
+      return res.status(200).send({ data: user });
     })
     .catch(next);
 }
@@ -90,8 +79,6 @@ function updateAvatar(req, res, next) {
 
 function login(req, res, next) {
   const { email, password } = req.body;
-
-  User.findOne({ email });
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
@@ -102,6 +89,7 @@ function login(req, res, next) {
       res.cookie('jwt', token, {
         maxAge: 3600000 * 7 * 24,
         httpOnly: true,
+        sameSite: true,
       });
       res.status(200).send({ token });
     })
@@ -111,7 +99,6 @@ function login(req, res, next) {
 module.exports = {
   getUsers,
   getUserById,
-  getUserInfo,
   createUser,
   updateUser,
   updateAvatar,

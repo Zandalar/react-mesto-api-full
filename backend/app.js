@@ -1,8 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 
 const usersRouter = require('./routes/usersRouter');
@@ -12,27 +12,20 @@ const { login, createUser } = require('./controllers/users');
 
 const { PORT = 3000 } = process.env;
 
-const allowedCors = [
-  'https://zandalar.students.nomoredomains.rocks',
-  'http://zandalar.students.nomoredomains.rocks',
-  'localhost:3000',
-];
-
 const app = express();
 
-mongoose.connect('mongodb://zandalar.students.nomoredomains.rocks/mestodb', {
+mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
 
-require('dotenv').config();
-
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+const allowedCors = [
+  'https://zandalar.students.nomoredomains.rocks',
+  'http://zandalar.students.nomoredomains.rocks',
+  'localhost:3001',
+];
 
 app.use((req, res, next) => {
   const { origin } = req.headers;
@@ -44,6 +37,10 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -63,7 +60,7 @@ app.post('/signup', celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().regex(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/),
     email: Joi.string().required().email(),
-    password: Joi.string().min(10).required().regex(/^\S+$/),
+    password: Joi.string().min(5).required().regex(/^\S+$/),
   }),
 }), createUser);
 
