@@ -247,8 +247,9 @@ function App() {
             isMenuOpened={isMobileMenuOpened}
           />
           <Switch>
-            <Route exact path='/'>
+            <Route>
               <ProtectedRoute
+                exact path='/'
                 component={Main}
                 loggedIn={loggedIn}
                 cards={cards}
@@ -273,7 +274,7 @@ function App() {
                 isLoading={isLoading}
               />
             </Route>
-            <Route exact path='/'>
+            <Route>
               { loggedIn
                 ? <Redirect to='/' />
                 : <Redirect to='/sign-in' />}

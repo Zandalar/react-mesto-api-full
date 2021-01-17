@@ -41,6 +41,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     select: false,
+    minlength: 5,
+    maxlength: 20,
     validate: {
       validator(v) {
         return /^\S+$/.test(v);
