@@ -260,13 +260,13 @@ function App() {
               onCardClick={handleCardClick}
               isLoading={isLoading}
             />
-            <Route path='/sign-up'>
+            <Route exact path='/sign-up'>
               <Register
                 onRegister={handleRegister}
                 isLoading={isLoading}
               />
             </Route>
-            <Route path='/sign-in'>
+            <Route exact path='/sign-in'>
               <Login
                 onLogin={handleLogin}
                 isLoading={isLoading}
