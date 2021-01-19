@@ -22,25 +22,29 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-// const allowedCors = [
-//   'https://fernandes.students.nomoredomains.rocks',
-//   'http://fernandes.students.nomoredomains.rocks',
-//   'https://api.fernandes.students.nomoredomains.rocks',
-//   'http://api.fernandes.students.nomoredomains.rocks',
-//   'https://fernandes.students.nomoredomains.rocks/sign-up',
-//   'https://fernandes.students.nomoredomains.rocks/sign-in',
-//   'localhost:3001',
-//   'http://192.168.0.105:3001',
-// ];
-app.use(cors());
+const allowedCors = [
+  'https://fernandes.students.nomoredomains.rocks/',
+  'http://fernandes.students.nomoredomains.rocks/',
+  'https://api.fernandes.students.nomoredomains.rocks/',
+  'http://api.fernandes.students.nomoredomains.rocks/',
+  'https://fernandes.students.nomoredomains.rocks/sign-up',
+  'https://fernandes.students.nomoredomains.rocks/sign-in',
+  'localhost:3001',
+  'http://192.168.0.105:3001',
+];
+
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  // res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept');
+  const { origin } = req.headers;
+
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+  }
   next();
 });
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
