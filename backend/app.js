@@ -25,7 +25,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 const allowedCors = [
   'https://fernandes.students.nomoredomains.rocks',
   'http://fernandes.students.nomoredomains.rocks',
+  'https://api.fernandes.students.nomoredomains.rocks',
+  'http://api.fernandes.students.nomoredomains.rocks',
+  'https://fernandes.students.nomoredomains.rocks/sign-up',
+  'https://fernandes.students.nomoredomains.rocks/sign-in',
   'localhost:3001',
+  'http://192.168.0.105:3001',
 ];
 
 app.use((req, res, next) => {

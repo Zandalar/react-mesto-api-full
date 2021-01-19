@@ -216,7 +216,7 @@ function App() {
         .then((res) => {
           const [userData, cardsList] = res;
           setCurrentUser(userData.data)
-          setCards(cardsList.reverse());
+          setCards(cardsList);
         })
         .catch((err) => console.log(`Что-то пошло не так :( ${err}`))
         .finally(() => setIsLoading(false))
