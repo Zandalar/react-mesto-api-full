@@ -18,7 +18,7 @@ function getUserById(req, res, next) {
       if (!user) {
         throw new NotFoundError('Нет юзера с таким id');
       }
-      return res.status(200).send({ data: user });
+      return res.status(200).send(user);
     })
     .catch(next);
 }
