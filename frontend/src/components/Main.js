@@ -25,7 +25,7 @@ function Main({ cards, onCardLike, onCardDelete, onCardClick, onEditAvatar, onEd
         <ul className='element__table'>
           {isLoading
             ? <Preloader />
-            : cards.map(data => {
+            : cards.data.map(data => {
               return (
                 <Card key={data._id} data={data} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete}/>
               )

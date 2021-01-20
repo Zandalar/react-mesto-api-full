@@ -247,19 +247,6 @@ function App() {
             isMenuOpened={isMobileMenuOpened}
           />
           <Switch>
-            <ProtectedRoute
-              exact path='/'
-              component={Main}
-              loggedIn={loggedIn}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleDeletionCardClick}
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              isLoading={isLoading}
-            />
             <Route exact path='/sign-up'>
               <Register
                 onRegister={handleRegister}
@@ -272,7 +259,20 @@ function App() {
                 isLoading={isLoading}
               />
             </Route>
-            <Route>
+            <ProtectedRoute
+              path='/'
+              loggedIn={loggedIn}
+              component={Main}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleDeletionCardClick}
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              isLoading={isLoading}
+            />
+            <Route exact path='/'>
               { loggedIn
                 ? <Redirect to='/' />
                 : <Redirect to='/sign-in' />}
