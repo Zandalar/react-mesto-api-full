@@ -5,7 +5,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
 const usersRouter = require('./routes/usersRouter');
 const cardsRouter = require('./routes/cardsRouter');
 const auth = require('./middlewares/auth');
@@ -25,26 +24,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-const allowedCors = [
-  'https://masich.students.nomoredomains.rocks',
-  'http://masich.students.nomoredomains.rocks',
-  'https://api.masich.students.nomoredomains.rocks',
-  'http://api.masich.students.nomoredomains.rocks',
-  'http://localhost:3001',
-];
-
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept');
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
-  }
-  next();
-});
 
 app.use(requestLogger);
 
