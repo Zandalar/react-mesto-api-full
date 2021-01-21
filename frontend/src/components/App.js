@@ -148,7 +148,7 @@ function App() {
       auth.checkToken(jwt)
         .then((res) => {
           setLoggedIn(true);
-          setEmail(res.data.email);
+          setEmail(res.email);
           history.push('/');
         })
         .catch((err) => {
@@ -215,7 +215,7 @@ function App() {
       Promise.all(promises)
         .then((res) => {
           const [userData, cardsList] = res;
-          setCurrentUser(userData.data)
+          setCurrentUser(userData)
           setCards(cardsList);
         })
         .catch((err) => console.log(`Что-то пошло не так :( ${err}`))

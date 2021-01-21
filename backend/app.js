@@ -31,7 +31,7 @@ const allowedCors = [
   'http://masich.students.nomoredomains.rocks',
   'https://api.masich.students.nomoredomains.rocks',
   'http://api.masich.students.nomoredomains.rocks',
-  'localhost:3001',
+  'http://localhost:3001',
 ];
 
 app.use((req, res, next) => {
