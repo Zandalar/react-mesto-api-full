@@ -247,18 +247,6 @@ function App() {
             isMenuOpened={isMobileMenuOpened}
           />
           <Switch>
-            <Route exact path='/sign-up'>
-              <Register
-                onRegister={handleRegister}
-                isLoading={isLoading}
-              />
-            </Route>
-            <Route exact path='/sign-in'>
-              <Login
-                onLogin={handleLogin}
-                isLoading={isLoading}
-              />
-            </Route>
             <ProtectedRoute
               path='/'
               loggedIn={loggedIn}
@@ -276,6 +264,18 @@ function App() {
               { loggedIn
                 ? <Redirect to='/' />
                 : <Redirect to='/sign-in' />}
+            </Route>
+            <Route exact path='/sign-up'>
+              <Register
+                onRegister={handleRegister}
+                isLoading={isLoading}
+              />
+            </Route>
+            <Route exact path='/sign-in'>
+              <Login
+                onLogin={handleLogin}
+                isLoading={isLoading}
+              />
             </Route>
             <Route path='*'>
               <NotFound />
