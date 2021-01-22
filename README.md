@@ -1,5 +1,9 @@
 # Проект ["Mesto"](https://masich.students.nomoredomains.rocks/) фронтенд + бэкенд
 
+* домен бэкенда - https://api.masich.students.nomoredomains.rocks/
+* ip бэкенда - [84.201.168.25](https://api.masich.students.nomoredomains.rocks/)
+* адрес сайта https://masich.students.nomoredomains.rocks/
+
 ## На данный момент реализовано:
 ### Backend:
 * Развернут сервер, с использованием express.js, nginx, mongoDB
