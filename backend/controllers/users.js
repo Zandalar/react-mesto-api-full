@@ -43,7 +43,7 @@ function createUser(req, res, next) {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new ReqError('Введены некорректные данные');
-      } else if (err.code === 11000 || err.name === 'MongoError') {
+      } else if (err.code === 11000 && err.name === 'MongoError') {
         throw new ConflictError('Такой пользователь уже зарегистрирован');
       }
       throw err;
