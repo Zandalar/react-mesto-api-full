@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const NotFoundError = require('../errors/NotFoundError');
 const ReqError = require('../errors/ReqError');
-const ConflictError = require('../errors/ConflictError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -43,8 +42,6 @@ function createUser(req, res, next) {
       .catch((err) => {
         if (err.name === 'ValidationError') {
           throw new ReqError('Введите корректные данные');
-        } else if (err.name === 'MongoError' || err.code === 11000) {
-          throw new ConflictError('Такой пользователь уже зарегистрирован');
         }
         next(err);
       }));
