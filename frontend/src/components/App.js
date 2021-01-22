@@ -101,6 +101,8 @@ function App() {
         setStatus(false);
         if (err.status === 400) {
           setErrorText('Некорректно заполнено одно из полей');
+        } else if (err.status === 409) {
+          setErrorText('Такой пользователь уже зарегистрирован');
         } else {
           setErrorText(`Ошибка: ${err.status}`);
         }
@@ -248,7 +250,7 @@ function App() {
           />
           <Switch>
             <ProtectedRoute
-              path='/'
+              exact path='/'
               loggedIn={loggedIn}
               component={Main}
               cards={cards}
