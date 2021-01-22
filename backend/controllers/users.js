@@ -66,7 +66,12 @@ function updateUser(req, res, next) {
       }
       return res.status(200).send(user);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new ReqError('Введите корректные данные');
+      }
+      next(err);
+    });
 }
 
 function updateAvatar(req, res, next) {
@@ -81,7 +86,12 @@ function updateAvatar(req, res, next) {
       }
       return res.status(200).send(user);
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new ReqError('Введите корректные данные');
+      }
+      next(err);
+    });
 }
 
 function login(req, res, next) {
