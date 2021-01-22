@@ -67,8 +67,9 @@ function updateUser(req, res, next) {
       if (err.name === 'ValidationError') {
         throw new ReqError('Введите корректные данные');
       }
-      next(err);
-    });
+      throw err;
+    })
+    .catch(next);
 }
 
 function updateAvatar(req, res, next) {
@@ -87,8 +88,9 @@ function updateAvatar(req, res, next) {
       if (err.name === 'ValidationError') {
         throw new ReqError('Введите корректные данные');
       }
-      next(err);
-    });
+      throw err;
+    })
+    .catch(next);
 }
 
 function login(req, res, next) {

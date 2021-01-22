@@ -16,8 +16,9 @@ function createCard(req, res, next) {
       if (err.name === 'ValidationError') {
         throw new ReqError('Введите корректные данные');
       }
-      next(err);
-    });
+      throw err;
+    })
+    .catch(next);
 }
 
 function deleteCard(req, res, next) {
