@@ -36,12 +36,6 @@ function createUser(req, res, next) {
       email,
       password: hash,
     }))
-    .catch((err) => {
-      if (err.name === 'MongoError' || err.code === 11000) {
-        throw new ConflictError('Такой пользователь уже зарегистрирован');
-      }
-      next(err);
-    })
     .then((user) => res.status(200).send({
       _id: user._id,
       email: user.email,
@@ -49,6 +43,8 @@ function createUser(req, res, next) {
       .catch((err) => {
         if (err.name === 'ValidationError') {
           throw new ReqError('Введите корректные данные');
+        } else if (err.name === 'MongoError' || err.code === 11000) {
+          throw new ConflictError('Такой пользователь уже зарегистрирован');
         }
         next(err);
       }));
