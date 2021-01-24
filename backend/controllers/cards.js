@@ -24,7 +24,6 @@ function createCard(req, res, next) {
 
 function deleteCard(req, res, next) {
   Card.findById(req.params.cardId)
-    .populate('owner')
     .orFail(new NotFoundError('Нет карточки с таким id'))
     .then((card) => {
       if (req.user._id === card.owner._id) {
@@ -45,7 +44,6 @@ function likeCard(req, res, next) {
     { new: true },
   )
     .orFail(new NotFoundError('Нет карточки с таким id'))
-    .populate('likes').populate('owner')
     .then((card) => {
       res.status(200).send(card);
     })
