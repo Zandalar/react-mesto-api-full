@@ -5,8 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const usersRouter = require('./routes/usersRouter');
-const cardsRouter = require('./routes/cardsRouter');
+const router = require('./routes/main');
 const auth = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
 
@@ -49,9 +48,7 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-app.use(auth);
-app.use('/', usersRouter);
-app.use('/', cardsRouter);
+app.use('/', auth, router);
 
 app.use(errorLogger);
 
