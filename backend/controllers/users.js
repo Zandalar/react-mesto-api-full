@@ -14,12 +14,18 @@ function getUsers(req, res, next) {
 }
 
 function getUserById(req, res, next) {
-  User.findById(req.user._id)
+  User.findById(req.params.id === 'me' ? req.user : req.user._id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Нет юзера с таким id');
       }
       return res.status(200).send(user);
+    })
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        throw new ReqError('Не передан корректный id');
+      }
+      throw err;
     })
     .catch(next);
 }

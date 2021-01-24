@@ -1,6 +1,7 @@
 const Card = require('../models/card');
 const NotFoundError = require('../errors/NotFoundError');
 const ReqError = require('../errors/ReqError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 function getCards(req, res, next) {
   Card.find({})
@@ -22,12 +23,17 @@ function createCard(req, res, next) {
 }
 
 function deleteCard(req, res, next) {
-  Card.findByIdAndRemove(req.params.cardId)
+  Card.findById(req.params.cardId)
+    .populate('owner')
+    .orFail(new NotFoundError('Нет карточки с таким id'))
     .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Файл не найден');
+      if (req.user._id === card.owner._id) {
+        Card.findByIdAndRemove(req.params.cardId)
+          .then((deletedCard) => res.status(200).send(deletedCard))
+          .catch(next);
+      } else {
+        throw new ForbiddenError('Нет доступа');
       }
-      return res.status(200).send(card);
     })
     .catch(next);
 }
@@ -38,11 +44,10 @@ function likeCard(req, res, next) {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
+    .orFail(new NotFoundError('Нет карточки с таким id'))
+    .populate('likes').populate('owner')
     .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Файл не найден');
-      }
-      return res.status(200).send(card);
+      res.status(200).send(card);
     })
     .catch(next);
 }
@@ -53,11 +58,10 @@ function dislikeCard(req, res, next) {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
+    .orFail(new NotFoundError('Нет карточки с таким id'))
+    .populate('likes').populate('owner')
     .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Файл не найден');
-      }
-      return res.status(200).send(card);
+      res.status(200).send(card);
     })
     .catch(next);
 }
