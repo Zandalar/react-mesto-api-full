@@ -26,7 +26,7 @@ function deleteCard(req, res, next) {
   Card.findById(req.params.cardId)
     .orFail(new NotFoundError('Нет карточки с таким id'))
     .then((card) => {
-      if (req.user._id === card.owner) {
+      if (req.user._id === card.owner.toString()) {
         Card.findByIdAndRemove(req.params.cardId)
           .then((deletedCard) => res.status(200).send(deletedCard))
           .catch(next);
