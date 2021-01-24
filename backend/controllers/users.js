@@ -15,12 +15,8 @@ function getUsers(req, res, next) {
 
 function getUserById(req, res, next) {
   User.findById(req.params.id === 'me' ? req.user : req.params.id)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Нет юзера с таким id');
-      }
-      return res.status(200).send(user);
-    })
+    .orFail(new NotFoundError('Нет юзера с таким id'))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.kind === 'ObjectId') {
         throw new ReqError('Не передан корректный id');
@@ -63,12 +59,8 @@ function updateUser(req, res, next) {
     new: true,
     runValidators: true,
   })
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Нет юзера с таким id');
-      }
-      return res.status(200).send(user);
-    })
+    .orFail(new NotFoundError('Нет юзера с таким id'))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new ReqError('Введите корректные данные');
@@ -84,12 +76,8 @@ function updateAvatar(req, res, next) {
     new: true,
     runValidators: true,
   })
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Нет юзера с таким id');
-      }
-      return res.status(200).send(user);
-    })
+    .orFail(new NotFoundError('Нет юзера с таким id'))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new ReqError('Введите корректные данные');
@@ -108,11 +96,6 @@ function login(req, res, next) {
         NODE_ENV === 'production' ? JWT_SECRET : 'vodka-bear-balalayka',
         { expiresIn: '7d' },
       );
-      // res.cookie('jwt', token, {
-      //   maxAge: 3600000 * 7 * 24,
-      //   httpOnly: true,
-      //   sameSite: true,
-      // });
       res.status(200).send({ token });
     })
     .catch(next);

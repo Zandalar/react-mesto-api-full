@@ -34,6 +34,12 @@ function deleteCard(req, res, next) {
         throw new ForbiddenError('Нет доступа');
       }
     })
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        throw new ReqError('Не передан корректный id');
+      }
+      throw err;
+    })
     .catch(next);
 }
 
@@ -44,8 +50,12 @@ function likeCard(req, res, next) {
     { new: true },
   )
     .orFail(new NotFoundError('Нет карточки с таким id'))
-    .then((card) => {
-      res.status(200).send(card);
+    .then((card) => res.status(200).send(card))
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        throw new ReqError('Не передан корректный id');
+      }
+      throw err;
     })
     .catch(next);
 }
@@ -57,8 +67,12 @@ function dislikeCard(req, res, next) {
     { new: true },
   )
     .orFail(new NotFoundError('Нет карточки с таким id'))
-    .then((card) => {
-      res.status(200).send(card);
+    .then((card) => res.status(200).send(card))
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        throw new ReqError('Не передан корректный id');
+      }
+      throw err;
     })
     .catch(next);
 }
