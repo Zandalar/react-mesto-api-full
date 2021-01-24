@@ -57,7 +57,6 @@ function dislikeCard(req, res, next) {
     { new: true },
   )
     .orFail(new NotFoundError('Нет карточки с таким id'))
-    .populate('likes').populate('owner')
     .then((card) => {
       res.status(200).send(card);
     })
